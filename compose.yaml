@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  producer:
+    build: ./producer/.
+    image: producer
+    container_name: producer
+    ports:
+      - '9091:9091'
+    depends_on:
+      - rabbitmq
+  consumer:
+    build: ./consumer/.
+    image: consumer
+    container_name: consumer
+    ports:
+      - '8080:8080'
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq
+    container_name: rabbitmq
+    ports:
+      - '15672:15672'
+      - '5672:5672'
